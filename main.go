@@ -1,15 +1,35 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
 
 func main() {
-	a := 5
-	b := 10
-	sum := a + b
 
-	fmt.Println(sum)
-	fmt.Println("Hello world!")
-	fmt.Println("Hello world!")
-	fmt.Println("Hello world!")
-	fmt.Println("Hello world!")
+	scanner := bufio.NewScanner(os.Stdin)
+
+	var name, lastname string
+
+	fmt.Println("Enter your name and lastname: ")
+	_, err := fmt.Scanln(&name, &lastname)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading input %v\n", err)
+	}
+
+	fmt.Println("Enter your age: ")
+	scanner.Scan()
+
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading input %v\n", err)
+	}
+
+	age := scanner.Text()
+
+	ageInt, _ := strconv.Atoi(age)
+
+	fmt.Printf("Приятно познакомиться, %s. Я 5 лет назад познакомился с человеком, у которого тоже фамилия %s, вам тогда было %d. Как молоды мы были!\n", name, lastname, ageInt)
 }
